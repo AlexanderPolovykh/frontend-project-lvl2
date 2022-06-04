@@ -1,0 +1,34 @@
+#!/usr/bin/env node
+
+import { Command } from 'commander';
+const program = new Command();
+
+import genDiff from '../index.js';
+// import genDiff from '@hexlet/code';
+
+program
+  .name('gendiff')
+  .description('Compares two configuration files and shows a difference.')
+  .version('0.1.0')
+  .helpOption('-h, --help', 'output usage information')
+  .option('-f, --format <type>', 'output format', 'normal')
+  .argument('<filepath1>', 'first file to compare')
+  .argument('<filepath2>', 'second file to compare')
+  // .formatHelp
+  // .parse();
+  .action((filepath1, filepath2, opts) => {
+    let result = 'nothing done!';
+    if (opts.format === 'normal') {
+      result = genDiff(filepath1, filepath2);
+    }
+    console.log(`${result}`);
+  })
+  .parse();
+
+  // const options = program.opts;
+  // const format = options.format;
+  // let result = 'none done!';
+  // if (format === 'normal' && program.args) {
+  //   result = genDiff(program)
+  // }
+  // console.log()
