@@ -8,7 +8,7 @@
   "main": "./src/code.js",
   "type": "module",
   "scripts": {
-    "test": "npx jest"
+    "test": "NODE_OPTIONS=--experimental-vm-modules npx jest"
   },
   "repository": {
     "type": "git",

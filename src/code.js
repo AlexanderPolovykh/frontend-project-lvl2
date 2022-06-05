@@ -4,6 +4,7 @@ import path from "node:path";
 
 export default (file1, file2) => {
   let retStr = "under construction..";
+  if (!file1 || !file2) return retStr;
   const filePath1 = path.resolve(process.cwd(), file1);
   const filePath2 = path.resolve(process.cwd(), file2);
   const extName1 = path.extname(filePath1);
