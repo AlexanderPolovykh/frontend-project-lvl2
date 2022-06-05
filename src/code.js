@@ -1,6 +1,6 @@
 import * as fs from "node:fs";
 import path from "node:path";
-import _ from "lodash";
+// import _ from "lodash";
 
 export default (file1, file2) => {
   let retStr = "under construction..";
@@ -36,7 +36,9 @@ export default (file1, file2) => {
       } else if (idx === arr.length - 1) {
         arrStr.push(`  - ${key1}: ${val1}`);
       }
+      return 0;
     });
+    return 0;
   });
   arrStr.push(["}"]);
   retStr = arrStr.join("\n");
