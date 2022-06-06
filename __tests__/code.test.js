@@ -1,4 +1,4 @@
-// import { test, expect } from "jest";
+import { test, expect } from "jest";
 import { fileURLToPath } from "node:url";
 import * as nodePath from "node:path";
 import genDiff from "../src/code.js";
