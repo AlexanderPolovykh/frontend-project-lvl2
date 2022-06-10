@@ -1,5 +1,6 @@
 import _ from "lodash";
 import parseFile from "./parsers.js";
+import formateEntries from "./stylish.js";
 
 export default (file1, file2) => {
   let retStr = "No names of files!";
@@ -20,24 +21,6 @@ export default (file1, file2) => {
     .map((el) => [...el, 1]);
   const allEntries = [...generalEntries, ...diffEntries1, ...diffEntries2];
   const sortedUnionEntries = _.sortBy(allEntries, (el) => el[0]);
-  const arrStr = ["{"];
-  sortedUnionEntries.forEach(([key, value, flag]) => {
-    let ch = " ";
-    switch (flag) {
-      case 0:
-        ch = " ";
-        break;
-      case -1:
-        ch = "-";
-        break;
-      case 1:
-        ch = "+";
-        break;
-      default:
-    }
-    arrStr.push(`  ${ch} ${key}: ${value}`);
-  });
-  arrStr.push(["}"]);
-  retStr = arrStr.join("\n");
+  retStr = formateEntries(sortedUnionEntries);
   return retStr;
 };

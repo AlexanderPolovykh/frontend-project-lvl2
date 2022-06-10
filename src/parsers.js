@@ -5,13 +5,13 @@ import yaml from "js-yaml";
 export default (file) => {
   const filePath = path.resolve(process.cwd(), file);
   const extNameInUppCase = path.extname(filePath).toUpperCase();
-  const f1 = fs.openSync(filePath);
-  const fileStr1 = fs.readFileSync(f1, "utf8");
+  const fd = fs.openSync(filePath);
+  const fileStr = fs.readFileSync(fd, "utf8");
   let obj = {};
   if (extNameInUppCase === ".JSON") {
-    obj = JSON.parse(fileStr1);
+    obj = JSON.parse(fileStr);
   } else if (extNameInUppCase === ".YAML" || extNameInUppCase === ".YML") {
-    [obj] = yaml.load(fileStr1);
+    [obj] = yaml.load(fileStr);
   }
   return obj;
 };
