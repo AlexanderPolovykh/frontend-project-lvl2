@@ -8,14 +8,32 @@ const __dirname = nodePath.dirname(__filename);
 const getFixturePath = (filename) => nodePath.join(__dirname, "..", "__fixtures__", filename);
 
 test("genDiff", () => {
-  expect(genDiff("", "")).toEqual("under construction..");
+  expect(genDiff("", "")).toEqual("No names of files!");
   expect(genDiff(getFixturePath("file1.json"), getFixturePath("file2.json")))
     .toEqual(`{
+  - follow: false
     host: hexlet.io
+  - proxy: 123.234.53.22
   - timeout: 50
   + timeout: 20
-  - timeout: 50
-  - proxy: 123.234.53.22
-  - follow: false
+  + verbose: true
 }`);
+  expect(genDiff(getFixturePath("file1.yaml"), getFixturePath("file2.yaml")))
+    .toEqual(`{
+  - follow: false
+    host: hexlet.io
+  - proxy: 123.234.53.22
+  - timeout: 50
+  + timeout: 20
+  + verbose: true
+}`);
+  //   expect(genDiff(getFixturePath("file1.yaml"), getFixturePath("file2.yaml")))
+  //     .toEqual(`{
+  //   - follow: false
+  //     host: hexlet.io
+  //   - proxy: 123.234.53.22
+  //   - timeout: 50
+  //   + timeout: 20
+  //   + verbose: true
+  // }`);
 });
