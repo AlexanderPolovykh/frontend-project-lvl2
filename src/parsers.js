@@ -11,7 +11,7 @@ export default (file) => {
   if (extNameInUppCase === ".JSON") {
     obj = JSON.parse(fileStr);
   } else if (extNameInUppCase === ".YAML" || extNameInUppCase === ".YML") {
-    [obj] = yaml.load(fileStr);
+    obj = yaml.load(fileStr);
   }
   return obj;
 };

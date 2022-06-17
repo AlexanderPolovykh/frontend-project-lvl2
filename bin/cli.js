@@ -5,8 +5,6 @@ import genDiff from "../index.js";
 
 const program = new Command();
 
-// import genDiff from '@hexlet/code';
-
 program
   .name("gendiff")
   .description("Compares two configuration files and shows a difference.")
