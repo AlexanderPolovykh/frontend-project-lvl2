@@ -1,7 +1,9 @@
 #!/usr/bin/env node
 
 import { Command } from "commander";
-import genDiff from "../index.js";
+// import genDiff from "../index.js";
+// eslint-disable-next-line import/no-extraneous-dependencies
+import genDiff from "@hexlet/code";
 
 const program = new Command();
 
@@ -16,11 +18,11 @@ program
   // .formatHelp
   // .parse();
   .action((filepath1, filepath2, opts) => {
-    let result = "nothing done!";
-    if (opts.format === "stylish") {
-      result = genDiff(filepath1, filepath2);
-    }
-    console.log(`${result}`);
+    // let result = "nothing done!";
+    // if (opts.format === "stylish") {
+    const result = genDiff(filepath1, filepath2, opts.format);
+    // }
+    console.log(result);
   })
   .parse();
 
