@@ -17,32 +17,32 @@ export default (value) => {
       })
       .map(([key, val], idx, arr) => {
         const key0 = key.slice(0, -1);
-        const retKey = (parentName !== "") ? `${parentName}.${key0}` : `${key0}`;
+        const retKey = parentName !== "" ? `${parentName}.${key0}` : `${key0}`;
         const [nextKey, nextVal] = arr[idx + 1] ?? [];
         const [prevKey] = arr[idx - 1] ?? [];
         const retValue = (v) => {
           if (_.isObject(v)) return "[complex value]";
-          if (typeof v === 'string') return `'${v}'`
+          if (typeof v === "string") return `'${v}'`;
           return v; // .toString();
         };
-        if (key.endsWith('-')) {
+        if (key.endsWith("-")) {
           if (idx < arr.length && nextKey.slice(0, -1) === key0) {
             return `Property '${retKey}' was updated. From ${retValue(val)} to ${retValue(nextVal)}`;
           }
           return `Property '${retKey}' was removed`;
         }
-        if (key.endsWith('+')) {
+        if (key.endsWith("+")) {
           if (idx > 0 && prevKey.slice(0, -1) === key0) return [];
           return `Property '${retKey}' was added with value: ${retValue(val)}`;
         }
-        if (key.endsWith('=')) {
+        if (key.endsWith("=")) {
           return iter(val, retKey);
         }
         return [];
-      }, '');
+      }, "");
     const ret = [...lines];
     return ret.flat().join("\n");
   };
 
-  return iter(value, '');
+  return iter(value, "");
 };
