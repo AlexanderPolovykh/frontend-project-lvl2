@@ -35,7 +35,7 @@ const genDiff = (file1, file2, formatName) => {
       } if (!keys2.includes(key)) {
         return { ...acc, [`${key}-`]: iter(value, value) };
       }
-      // return { ...acc, ...ac };
+      return { ...acc };
     }, {});
     return ob;
   };
