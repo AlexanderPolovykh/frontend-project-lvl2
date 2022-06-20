@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
 import { Command } from "commander";
-// import genDiff from "../index.js";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import genDiff from "@hexlet/code";
 

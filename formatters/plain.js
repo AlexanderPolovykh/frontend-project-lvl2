@@ -1,18 +1,10 @@
 import _ from "lodash";
 
 export default (value) => {
-  // , replacer = ' ', spacesCount = 1) => {
-  const spacesCount = 2;
-  const replacer = " ".repeat(spacesCount);
-
-  const iter = (currentValue, depth) => {
+  const iter = (currentValue, parentName) => {
     if (!_.isObject(currentValue)) {
-      return `${currentValue}`;
+      return [];
     }
-
-    const indentSize = depth * spacesCount;
-    const currentIndent = replacer.repeat(indentSize);
-    const bracketIndent = replacer.repeat(indentSize - spacesCount);
     const lines = Object.entries(currentValue)
       .sort(([key1], [key2]) => {
         const k1 = key1.slice(0, -1);
@@ -23,20 +15,27 @@ export default (value) => {
         if (key1.endsWith("-")) return -1;
         return 0;
       })
-      .map(([key, val]) => {
+      .map(([key, val], idx, arr) => {
         const key0 = key.slice(0, -1);
-        let ch = "  ";
-        if (key.endsWith("-")) {
-          ch = "- ";
-        } else if (key.endsWith("+")) {
-          ch = "+ ";
+        const retKey = (parentName !== "") ? `${parentName}.${key0}` : `${key0}`;
+        if (key.endsWith('-')) {
+          if (arr[idx + 1][0] === key) {
+            return `Property '${retKey}' was updated.`;
+          }
+          return `Property '${retKey}' was removed`;
         }
-        const currentIndent0 = `${currentIndent.slice(0, -2)}${ch}`;
-        return `${currentIndent0}${key0}: ${iter(val, depth + 1)}`;
+        if (key.endsWith('+')) {
+          const retValue = _.isObject(val) ? "[complex value]" : `'${val}'`;
+          return `Property '${retKey}' was added with value: ${retValue}`;
+        }
+        if (key.endsWith('=')) {
+          return iter(val, retKey);
+        }
+        return [];
       });
-
-    return ["{", ...lines, `${bracketIndent}}`].join("\n");
+    const ret = [...lines];
+    return ret.flat().join("\n");
   };
 
-  return iter(value, 1);
+  return iter(value, '');
 };
