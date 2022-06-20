@@ -12,25 +12,30 @@ export default (value) => {
     const indentSize = depth * spacesCount;
     const currentIndent = replacer.repeat(indentSize);
     const bracketIndent = replacer.repeat(indentSize - spacesCount);
-    const lines = Object.entries(currentValue)
-      .sort(([key1], [key2]) => {
-        const k1 = key1.slice(0, -1);
-        const k2 = key2.slice(0, -1);
-        if (k1 > k2) return 1;
-        if (k1 < k2) return -1;
-        if (key1.endsWith('+')) return 1;
-        if (key1.endsWith('-')) return -1;
-        return 0;
-      })
+    const entrs = Object.entries(currentValue);
+    const sortedEntrs = _.sortBy(entrs, ([key]) => key.slice(0, -1));
+    const lines = sortedEntrs
+    // const lines = Object.entries(currentValue)
+    //   .sort(([key1], [key2]) => {
+    //     const k1 = key1.slice(0, -1);
+    //     const k2 = key2.slice(0, -1);
+    //     if (k1 > k2) return 1;
+    //     if (k1 < k2) return -1;
+    //     if (key1.endsWith('+')) return 1;
+    //     if (key1.endsWith('-')) return -1;
+    //     return 0;
+    //   })
       .map(([key, val]) => {
         const key0 = key.slice(0, -1);
-        let ch = '  ';
-        if (key.endsWith('-')) {
-          ch = '- ';
-        } else if (key.endsWith('+')) {
-          ch = '+ ';
-        }
-        const currentIndent0 = `${currentIndent.slice(0, -2)}${ch}`;
+        // let ch = '  ';
+        // if (key.endsWith('-')) {
+        //   ch = '- ';
+        // } else if (key.endsWith('+')) {
+        //   ch = '+ ';
+        // }
+        const currentIndent0 = (key.endsWith('='))
+          ? `${currentIndent.slice(0, -2)}  `
+          : `${currentIndent.slice(0, -2)}${key.slice(-1)} `;
         return `${currentIndent0}${key0}: ${iter(val, depth + 1)}`;
       });
 

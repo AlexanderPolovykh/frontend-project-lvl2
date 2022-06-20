@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import _ from 'lodash';
 import parseFile from './parsers.js';
 import formatObj from '../formatters/index.js';
@@ -16,8 +17,8 @@ const genDiff = (file1, file2, formatName) => {
     const keys1 = Object.keys(ob1);
     const keys2 = Object.keys(ob2);
     const unionEntrs = _.unionWith(entries1, entries2, _.isEqual); // no repeats
-    const ob = unionEntrs.reduce((acc, [key, value]) => {
-      const ac = acc;
+    const ob = unionEntrs.reduce((ac, [key, value]) => {
+      // const ac = acc;
       if (keys1.includes(key) && keys2.includes(key)) {
         if (_.isObject(ob1[key]) && _.isObject(ob2[key])) {
           if (ac[`${key}=`] !== undefined) return ac;
