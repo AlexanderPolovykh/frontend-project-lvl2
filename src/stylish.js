@@ -22,7 +22,6 @@
 import _ from "lodash";
 
 export default (value) => {
-  // , replacer = ' ', spacesCount = 1) => {
   const spacesCount = 2;
   const replacer = " ".repeat(spacesCount);
 

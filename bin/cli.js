@@ -23,11 +23,3 @@ program
     console.log(`${result}`);
   })
   .parse();
-
-// const options = program.opts;
-// const format = options.format;
-// let result = 'none done!';
-// if (format === 'normal' && program.args) {
-//   result = genDiff(program)
-// }
-// console.log()
