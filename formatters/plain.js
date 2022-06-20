@@ -1,27 +1,7 @@
-// export default (entries) => {
-//   const arrStr = ["{"];
-//   entries.forEach(([key, value, flag, level]) => {
-//     let ch = " ";
-//     switch (flag) {
-//       case "same":
-//         ch = " ";
-//         break;
-//       case "removed":
-//         ch = "-";
-//         break;
-//       case "added":
-//         ch = "+";
-//         break;
-//       default:
-//     }
-//     arrStr.push(`${"  ".repeat(level)}  ${ch} ${key}: ${JSON.stringify(value, null, "\t")}`);
-//   });
-//   arrStr.push(["}"]);
-//   return arrStr.join("\n");
-// };
 import _ from "lodash";
 
 export default (value) => {
+  // , replacer = ' ', spacesCount = 1) => {
   const spacesCount = 2;
   const replacer = " ".repeat(spacesCount);
 
