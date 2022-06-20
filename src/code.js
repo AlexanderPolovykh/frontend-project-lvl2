@@ -17,7 +17,7 @@ const genDiff = (file1, file2, formatName) => {
     const keys2 = Object.keys(ob2);
     const unionEntrs = _.unionWith(entries1, entries2, _.isEqual); // no repeats
     const ob = unionEntrs.reduce((acc, [key, value]) => {
-      const ac = { ...acc };
+      const ac = {};
       if (keys1.includes(key) && keys2.includes(key)) {
         if (_.isObject(ob1[key]) && _.isObject(ob2[key])) {
           if (ac[`${key}=`] !== undefined) return ac;
@@ -34,7 +34,7 @@ const genDiff = (file1, file2, formatName) => {
       } else if (!keys2.includes(key)) {
         ac[`${key}-`] = iter(value, value);
       }
-      return ac;
+      return { ...acc, ...ac };
     }, {});
     return ob;
   };
