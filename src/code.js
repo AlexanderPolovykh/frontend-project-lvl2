@@ -17,24 +17,25 @@ const genDiff = (file1, file2, formatName) => {
     const keys2 = Object.keys(ob2);
     const unionEntrs = _.unionWith(entries1, entries2, _.isEqual); // no repeats
     const ob = unionEntrs.reduce((acc, [key, value]) => {
-      const ac = {};
+      // const ac = {};
       if (keys1.includes(key) && keys2.includes(key)) {
         if (_.isObject(ob1[key]) && _.isObject(ob2[key])) {
-          if (ac[`${key}=`] !== undefined) return ac;
-          ac[`${key}=`] = iter(ob1[key], ob2[key]);
-        } else if (!_.isEqual(ob2[key], value)) {
-          ac[`${key}-`] = iter(value, value);
-        } else if (!_.isEqual(ob1[key], value)) {
-          ac[`${key}+`] = iter(value, value);
-        } else {
-          ac[`${key}=`] = iter(value, value);
+          if (acc[`${key}=`] !== undefined) return acc;
+          return { ...acc, [`${key}=`]: iter(ob1[key], ob2[key]) };
         }
-      } else if (!keys1.includes(key)) {
-        ac[`${key}+`] = iter(value, value);
-      } else if (!keys2.includes(key)) {
-        ac[`${key}-`] = iter(value, value);
+        if (!_.isEqual(ob2[key], value)) {
+          return { ...acc, [`${key}-`]: iter(value, value) };
+        }
+        if (!_.isEqual(ob1[key], value)) {
+          return { ...acc, [`${key}+`]: iter(value, value) };
+        }
+        return { ...acc, [`${key}=`]: iter(value, value) };
+      } if (!keys1.includes(key)) {
+        return { ...acc, [`${key}+`]: iter(value, value) };
+      } if (!keys2.includes(key)) {
+        return { ...acc, [`${key}-`]: iter(value, value) };
       }
-      return { ...acc, ...ac };
+      // return { ...acc, ...ac };
     }, {});
     return ob;
   };
