@@ -17,6 +17,10 @@ const diffPlainResult = fs.readFileSync(
   fs.openSync(getFixturePath("diff-plain.txt")),
   "utf8",
 );
+const diffJSONResult = fs.readFileSync(
+  fs.openSync(getFixturePath("diff-json.txt")),
+  "utf8",
+);
 
 test("genDiff", () => {
   expect(genDiff("", "")).toEqual("{}");
@@ -33,4 +37,10 @@ test("genDiff", () => {
   expect(
     genDiff(getFixturePath("file1.yaml"), getFixturePath("file2.yaml"), "plain"),
   ).toEqual(diffPlainResult);
+  expect(
+    genDiff(getFixturePath("file1.json"), getFixturePath("file2.json"), "json"),
+  ).toEqual(diffJSONResult);
+  expect(
+    genDiff(getFixturePath("file1.yaml"), getFixturePath("file2.yaml"), "json"),
+  ).toEqual(diffJSONResult);
 });
