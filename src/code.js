@@ -1,10 +1,9 @@
-import _ from "lodash";
-import parseFile from "./parsers.js";
-import formatObj from "../formatters/index.js";
+import _ from 'lodash';
+import parseFile from './parsers.js';
+import formatObj from '../formatters/index.js';
 
 const genDiff = (file1, file2, formatName) => {
-  let diffObj = {};
-  if (!file1 || !file2) return JSON.stringify(diffObj);
+  if (!file1 || !file2) return JSON.stringify({});
   const obj1 = parseFile(file1);
   const obj2 = parseFile(file2);
 
@@ -40,8 +39,7 @@ const genDiff = (file1, file2, formatName) => {
     return ob;
   };
 
-  diffObj = iter(obj1, obj2);
-  return formatObj(diffObj, formatName);
+  return formatObj(iter(obj1, obj2), formatName);
 };
 
 export default genDiff;

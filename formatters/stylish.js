@@ -1,8 +1,8 @@
-import _ from "lodash";
+import _ from 'lodash';
 
 export default (value) => {
   const spacesCount = 2;
-  const replacer = " ".repeat(spacesCount);
+  const replacer = ' '.repeat(spacesCount);
 
   const iter = (currentValue, depth) => {
     if (!_.isObject(currentValue)) {
@@ -18,23 +18,23 @@ export default (value) => {
         const k2 = key2.slice(0, -1);
         if (k1 > k2) return 1;
         if (k1 < k2) return -1;
-        if (key1.endsWith("+")) return 1;
-        if (key1.endsWith("-")) return -1;
+        if (key1.endsWith('+')) return 1;
+        if (key1.endsWith('-')) return -1;
         return 0;
       })
       .map(([key, val]) => {
         const key0 = key.slice(0, -1);
-        let ch = "  ";
-        if (key.endsWith("-")) {
-          ch = "- ";
-        } else if (key.endsWith("+")) {
-          ch = "+ ";
+        let ch = '  ';
+        if (key.endsWith('-')) {
+          ch = '- ';
+        } else if (key.endsWith('+')) {
+          ch = '+ ';
         }
         const currentIndent0 = `${currentIndent.slice(0, -2)}${ch}`;
         return `${currentIndent0}${key0}: ${iter(val, depth + 1)}`;
       });
 
-    return ["{", ...lines, `${bracketIndent}}`].join("\n");
+    return ['{', ...lines, `${bracketIndent}}`].join('\n');
   };
 
   return iter(value, 1);

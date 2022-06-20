@@ -1,18 +1,18 @@
-import formatObjByStylish from "./stylish.js";
-import formatObjByPlain from "./plain.js";
-import formatObjByJSON from "./json.js";
+import formatObjByStylish from './stylish.js';
+import formatObjByPlain from './plain.js';
+import formatObjByJSON from './json.js';
 
 const formatObj = (obj, formatter) => {
-  const formatBy = formatter !== undefined ? formatter : "stylish";
+  const formatBy = formatter !== undefined ? formatter : 'stylish';
   switch (formatBy) {
-    case "stylish":
+    case 'stylish':
       return formatObjByStylish(obj);
-    case "plain":
+    case 'plain':
       return formatObjByPlain(obj);
-    case "json":
+    case 'json':
       return formatObjByJSON(obj);
     default:
-      return "Unknown formatter!";
+      return 'Unknown formatter!';
   }
 };
 
