@@ -26,7 +26,7 @@ export default (value) => {
           return v; // .toString();
         };
         if (key.endsWith("-")) {
-          if (idx < arr.length && nextKey.slice(0, -1) === key0) {
+          if (idx < (arr.length - 1) && nextKey.slice(0, -1) === key0) {
             return `Property '${retKey}' was updated. From ${retValue(val)} to ${retValue(nextVal)}`;
           }
           return `Property '${retKey}' was removed`;
