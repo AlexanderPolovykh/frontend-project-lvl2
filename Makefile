@@ -2,7 +2,8 @@ install: install-deps
 
 install-deps:
 	npm ci
-
+	npm link @hexlet/code
+	
 test:
 	npm test
 
